@@ -33,7 +33,6 @@ E:\VS PROJECTOS\EXAMEN\Examen\bin\MySql.Data.dll
 E:\VS PROJECTOS\EXAMEN\Examen\bin\MySql.Data.Entity.EF6.dll
 E:\VS PROJECTOS\EXAMEN\Examen\bin\Newtonsoft.Json.dll
 E:\VS PROJECTOS\EXAMEN\Examen\bin\Owin.dll
-E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Diagnostics.DiagnosticSource.dll
 E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Web.Helpers.dll
 E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Web.Mvc.dll
 E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Web.Optimization.dll
@@ -61,7 +60,6 @@ E:\VS PROJECTOS\EXAMEN\Examen\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\VS PROJECTOS\EXAMEN\Examen\bin\Microsoft.Owin.Security.OAuth.xml
 E:\VS PROJECTOS\EXAMEN\Examen\bin\Microsoft.Owin.Security.Twitter.xml
 E:\VS PROJECTOS\EXAMEN\Examen\bin\Newtonsoft.Json.xml
-E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Diagnostics.DiagnosticSource.xml
 E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Web.Helpers.xml
 E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Web.Mvc.xml
 E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Web.Optimization.xml
@@ -196,3 +194,8 @@ C:\Users\VITECHD\Documents\LAExamen\Examen\obj\Debug\Examen.pdb
 C:\Users\VITECHD\Documents\LAExamen\Examen\obj\Debug\Examen.csprojResolveAssemblyReference.cache
 C:\Users\VITECHD\Documents\LAExamen\Examen\obj\Debug\Examen.Migrations.InitialCreate.resources
 C:\Users\VITECHD\Documents\LAExamen\Examen\obj\Debug\Examen.csproj.GenerateResource.Cache
+E:\VS PROJECTOS\EXAMEN\Examen\obj\Debug\Examen.csprojResolveAssemblyReference.cache
+E:\VS PROJECTOS\EXAMEN\Examen\obj\Debug\Examen.Migrations.InitialCreate.resources
+E:\VS PROJECTOS\EXAMEN\Examen\obj\Debug\Examen.csproj.GenerateResource.Cache
+E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Diagnostics.DiagnosticSource.dll
+E:\VS PROJECTOS\EXAMEN\Examen\bin\System.Diagnostics.DiagnosticSource.xml
