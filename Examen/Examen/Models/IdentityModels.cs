@@ -21,13 +21,40 @@ namespace Examen.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("Examen", throwIfV1Schema: false)
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        public System.Data.Entity.DbSet<Examen.Models.Contact> Contacts { get; set; }
+
+        public System.Data.Entity.DbSet<Examen.Models.Product> Products { get; set; }
+        public virtual DbSet<Invoice> Invoice { get; set; }
+        public virtual DbSet<InvoiceLine> InvoiceLine { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Contact>()
+               .HasMany(e => e.Invoice)
+                .WithRequired(e => e.Contact)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Invoice>()
+                .HasMany(e => e.InvoiceLine)
+                .WithRequired(e => e.Invoice)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Product>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(e => e.InvoiceLine)
+                .WithRequired(e => e.Product)
+                .WillCascadeOnDelete(false);
         }
     }
 }

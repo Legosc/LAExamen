@@ -53,7 +53,7 @@ namespace Examen
             // Configure la lógica de validación de contraseñas
             manager.PasswordValidator = new PasswordValidator
             {
-               
+                
             };
 
             // Configurar valores predeterminados para bloqueo de usuario

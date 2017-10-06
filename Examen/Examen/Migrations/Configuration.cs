@@ -10,7 +10,7 @@ namespace Examen.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
+            ContextKey = "Examen.Models.ApplicationDbContext";
         }
 
         protected override void Seed(Examen.Models.ApplicationDbContext context)
