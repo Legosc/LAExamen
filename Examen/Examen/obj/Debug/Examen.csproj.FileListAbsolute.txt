@@ -187,7 +187,6 @@ E:\VS PROJECTOS\EXAMEN\Examen\Examen\bin\es\EntityFramework.SqlServer.resources.
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
-E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.csprojResolveAssemblyReference.cache
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.Migrations.InitialCreate.resources
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.Migrations.contact.resources
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.Migrations.product.resources
@@ -195,3 +194,4 @@ E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.Migrations.product1.resour
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.csproj.GenerateResource.Cache
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.dll
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.pdb
+E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.Migrations.Factura.resources

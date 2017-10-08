@@ -196,6 +196,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -217,12 +218,19 @@
     <Compile Include="Migrations\201710060323112_product1.Designer.cs">
       <DependentUpon>201710060323112_product1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710070141071_Factura.cs" />
+    <Compile Include="Migrations\201710070141071_Factura.Designer.cs">
+      <DependentUpon>201710070141071_Factura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\InvoiceLine.cs" />
+    <Compile Include="Models\Logics\ContactLogic.cs" />
+    <Compile Include="Models\Logics\InvoiceLogic.cs" />
+    <Compile Include="Models\Logics\ProductLogic.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -309,6 +317,11 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Invoices\Create.cshtml" />
+    <Content Include="Views\Invoices\Delete.cshtml" />
+    <Content Include="Views\Invoices\Details.cshtml" />
+    <Content Include="Views\Invoices\Edit.cshtml" />
+    <Content Include="Views\Invoices\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -331,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710060323112_product1.resx">
       <DependentUpon>201710060323112_product1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710070141071_Factura.resx">
+      <DependentUpon>201710070141071_Factura.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

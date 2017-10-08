@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Examen.Models
 {
+    [Table("InvoiceLine")]
     public class InvoiceLine
     {
         [Key]

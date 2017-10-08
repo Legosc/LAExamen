@@ -23,6 +23,7 @@ namespace Examen.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            
         }
 
         public static ApplicationDbContext Create()
@@ -30,13 +31,17 @@ namespace Examen.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<Examen.Models.Contact> Contacts { get; set; }
-
-        public System.Data.Entity.DbSet<Examen.Models.Product> Products { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Product> Products { get; set; }
         public virtual DbSet<Invoice> Invoice { get; set; }
         public virtual DbSet<InvoiceLine> InvoiceLine { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+
             modelBuilder.Entity<Contact>()
                .HasMany(e => e.Invoice)
                 .WithRequired(e => e.Contact)
