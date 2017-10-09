@@ -7,7 +7,7 @@ namespace Examen.Models.Logics
 {
     public class ContactLogic
     {
-        public List<Contact> Buscar(string name)
+        public List<Contact> Buscar()
         {
             using (var context = new ApplicationDbContext())
             {
@@ -15,8 +15,6 @@ namespace Examen.Models.Logics
                 context.Configuration.ProxyCreationEnabled = false;
 
                 var Contacts = context.Contacts.OrderBy(x => x.Name)
-                                        .Where(x => x.Name.Contains(name))
-                                        .Take(10)
                                         .ToList();
 
                 return Contacts;

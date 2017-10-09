@@ -7,7 +7,7 @@ namespace Examen.Models.Logics
 {
     public class ProductLogic
     {
-        public List<Product> Buscar(string Name)
+        public List<Product> Buscar()
         {
             using (var context = new ApplicationDbContext())
             {
@@ -15,8 +15,7 @@ namespace Examen.Models.Logics
                 context.Configuration.ProxyCreationEnabled = false;
 
                 var products = context.Products.OrderBy(x => x.Name)
-                                        .Where(x => x.Name.Contains(Name))
-                                        .Take(10)
+                                        
                                         .ToList();
 
                 return products;

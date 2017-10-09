@@ -7,13 +7,12 @@ using System.Linq;
 namespace Examen.Models
 {
     [Table("Invoice")]
-    public class Invoice
+    public partial class Invoice
     {
         public Invoice()
         {
-            InvoiceLine = new List<InvoiceLine>();
+            InvoiceLine = new List<Models.InvoiceLine>();
         }
-
         public int id { get; set; }
 
         [Required]
@@ -31,6 +30,7 @@ namespace Examen.Models
     {
         #region Cabecera
         public int ContactId { get; set; }
+        public string ContactName { get; set; }
         public int HeaderProductId { get; set; }
         public string HeaderProductName { get; set; }
         public int HeaderProductQuantity { get; set; }

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Examen.Models;
 using Examen.Models.Logics;
@@ -27,12 +23,15 @@ namespace Examen.Controllers
         }
         public JsonResult BuscarProducto(string nombre)
         {
-            return Json(pl.Buscar(nombre));
+            return Json(pl.Buscar());
+        }
+        public JsonResult BuscarContacto(string nombre)
+        {
+            return Json(cl.Buscar());
         }
 
         public ActionResult Create()
         {
-            ViewBag.ContactId = new SelectList(db.Contacts, "Id", "Name");
             return View(new InvoiceViewModel());
         }
         [HttpPost]
@@ -59,11 +58,13 @@ namespace Examen.Controllers
                 else
                 {
                     model.AgregarItemADetalle();
+                    
                 }
             }
             else if (action == "retirar_producto")
             {
                 model.RetirarItemDeDetalle();
+                
             }
             else
             {
@@ -180,11 +181,8 @@ namespace Examen.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            
+            base.Dispose(false);
         }
     }
 }

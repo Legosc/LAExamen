@@ -1,0 +1,145 @@
+﻿@model Examen.Models.DateViewModel
+
+@{
+    ViewBag.Title = "Citas";
+}
+
+<h2>Crear</h2>
+
+
+@using (Html.BeginForm("Create", "Dates", FormMethod.Post, new { id = "frm-dates" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <h4>Cita</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="input-field col s12">
+            @Html.HiddenFor(x => x.ContactId)
+            @Html.TextBoxFor(x => x.NameContact, new { id = "Contacto", @autocomplete = "off" })
+            <label for="Contacto">Cliente</label>
+        </div>
+        <div class="col s12">
+            <label for="Reservation">Fecha</label>
+            @Html.EditorFor(model => model.Reservation, new { htmlAttributes = new { @class = "datepicker" } })
+            
+
+        </div>
+        <div class="col s12">
+            <label for="Hora">Hora</label>
+            @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "timepicker" } })
+        </div>
+        <div class="input-field col s12">
+            @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+            <label for="Details">Detalle</label>
+        </div>
+        <div class="input-field col s12">
+            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+            <label for="Duration">Duracion</label>
+        </div>
+        <p>
+            @Html.CheckBoxFor(model => model.IsConfirmed, new { @type = "checkbox" })
+            <label for="IsConfirmed">Confirmado</label>
+        </p>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $(document).ready(function () {
+        $('#Hour').change(function () {
+                var st = $('#Hour').val(); // start time Format: '9:00 PM'
+                var et = '18:00';
+                var it = '08:00';
+                
+                //how do i compare time
+                if (st > et && st < it) {
+                    alert('La hora escogida esta fuera de Horario');
+                    console.log(st);
+                }
+            });
+            $(function () {
+                $('.datepicker').pickadate({
+                    selectMonths: true, // Creates a dropdown to control month
+                    selectYears: 15, // Creates a dropdown of 15 years to control year,
+                    today: 'Today',
+                    clear: 'Clear',
+                    close: 'Ok',
+                    closeOnSelect: false // Close upon selecting a date,
+                });
+                $.ajax({
+                    type: 'post',
+                    url: '/Invoices/BuscarContacto',
+                    success: function (response) {
+                        var contactarray = response;
+                        var datacontact = {};
+                        for (var i = 0; i < contactarray.length; i++) {
+                            datacontact[contactarray[i].Name] = {
+                                id: contactarray[i].Id
+                            };
+                        }
+                        $('#Contacto').autocomplete({
+                            data: datacontact,
+                            limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+                            onAutocomplete: function (val) {
+                                $("#ContactId").val(datacontact[val].id);
+                            },
+                            minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+                        });
+                    }
+                });
+
+            });
+            $('.timepicker').pickatime({
+                default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+                fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+                twelvehour: false, // Use AM/PM or 24-hour format
+                donetext: 'OK', // text for done-button
+                cleartext: 'Clear', // text for clear-button
+                canceltext: 'Cancel', // Text for cancel-button
+                autoclose: false, // automatic close timepicker
+                ampmclickable: true, // make AM PM clickable
+                aftershow: function () { } //Function for after opening timepicker
+            });
+            $.ajax({
+                type: 'post',
+                url: '/Invoices/BuscarContacto',
+                success: function (response) {
+                    var contactarray = response;
+                    var datacontact = {};
+                    for (var i = 0; i < contactarray.length; i++) {
+                        datacontact[contactarray[i].Name] = {
+                            id: contactarray[i].Id
+                        };
+                    }
+                    $('#Contacto').autocomplete({
+                        data: datacontact,
+                        limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+                        onAutocomplete: function (val) {
+                            $("#ContactId").val(datacontact[val].id);
+                        },
+                        minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+                    });
+                }
+            });
+        })
+
+       
+</script>
+}

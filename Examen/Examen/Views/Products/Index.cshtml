@@ -38,7 +38,11 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Enabled)
+            <p>
+                @Html.CheckBoxFor(modelItem => item.Enabled, new { @type = "checkbox", @disabled = "disabled"})
+                <label for="Enabled"></label>
+            </p>
+           
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
@@ -49,3 +53,8 @@
 }
 
 </table>
+<script>
+    $("input[type='hidden']").each(function (index, element) {
+        $(this).appendTo($(element).parent());
+    });
+</script>

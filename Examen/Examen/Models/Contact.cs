@@ -15,5 +15,6 @@ namespace Examen.Models
         public string Address { get; set; }
         public string email { get; set; }
         public virtual List<Invoice> Invoice { get; set; }
+        public virtual List<Date> Date { get; set; }
     }
 }

@@ -3,47 +3,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link type="text/css" rel="stylesheet" href="~/Content/materialize.min.css" media="screen,projection" />
+    <title>@ViewBag.Title - Mi Clinica ASP.NET</title>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquery-ui")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-
+    
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nombre de aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Contactos", "Index", "Contacts")</li>
-                        <li>@Html.ActionLink("Ventas", "Index", "Invoices")</li>
-                        <li>@Html.ActionLink("Citas", "Contact", "Home")</li>
+<nav>
+    <div class="nav-wrapper">
+        
+        
+        <ul id="nav-mobile" class=" hide-on-med-and-down">
+            @if (Request.IsAuthenticated)
+            {
+                <li>@Html.ActionLink("Contactos", "Index", "Contacts")</li>
+                    <li>@Html.ActionLink("Ventas", "Index", "Invoices")</li>
+                        <li>@Html.ActionLink("Citas", "Index", "Dates")</li>
                         <li>@Html.ActionLink("Productos", "Index", "Products")</li>
                         <li>@Html.ActionLink("Permisos", "Contact", "Home")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>}          
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>}
+        </ul>
+        @Html.Partial("_LoginPartial")
     </div>
-    <div class="container body-content">
+    
+</nav>
+
+<body>
+    <div class="container">
         @RenderBody()
         <hr />
         <footer>
@@ -54,5 +49,11 @@
     
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+
+    $("input[type='hidden']").each(function (index, element) {
+        $(this).appendTo($(element).parent());
+    });
+    </script>
 </body>
 </html>

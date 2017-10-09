@@ -1,66 +1,68 @@
 ﻿@model Examen.Models.InvoiceViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Modulo de Facturacion";
 }
 
-<h2>Create</h2>
+<h2>Modulo de Facturacion</h2>
 
 
 @using (Html.BeginForm("Create", "Invoices", FormMethod.Post, new { id = "frm-invoice" })) 
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
         <h4>Factura</h4>
         <hr />
-        <div class="col-xs-12">
-            <div class="form-group">
-                <label>Contacto</label>
-                @Html.TextBoxFor(x => x.ContactId, new { @class = "form-control", placeholder = "Ingrese el nombre del cliente" })
-                @Html.ValidationMessage("Cliente", null, new { @class = "label label-danger" })
-            </div>
 
-            <div class="well well-sm">
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    @Html.HiddenFor(x => x.ContactId)
+                    @Html.TextBoxFor(x => x.ContactName, new { id = "Contacto", @autocomplete = "off" })
+                    <label for="Contacto">Cliente</label>
+                </div>
+            </div>
+            <div class="card-panel">
                 <div class="row">
-                    <div class="col-xs-7">
+                    
                         @Html.HiddenFor(x => x.HeaderProductId)
-                        @Html.TextBoxFor(x => x.HeaderProductName, new { @class = "form-control", placeholder = "Buscar producto", id = "Producto" })
-                        @Html.ValidationMessage("producto_agregar", null, new { @class = "label label-danger" })
-                    </div>
-                    <div class="col-xs-2">
-                        @Html.TextBoxFor(x => x.HeaderProductQuantity, new { @class = "form-control", placeholder = "Cantidad" })
-                    </div>
-                    <div class="col-xs-2">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">S/.</span>
-                            @Html.TextBoxFor(x => x.HeaderProductPrice, new { @class = "form-control", placeholder = "Precio" })
+                        <div class="input-field col s7">
+                            @Html.TextBoxFor(x => x.HeaderProductName, new { id = "Producto", @autocomplete = "off" })
+                            <label for="autocomplete-input">Producto</label>
                         </div>
+                        @Html.ValidationMessage("producto_agregar", null, new { @class = "label label-danger" })
+                   
+                    <div class="input-field col s2">
+                        @Html.TextBoxFor(x => x.HeaderProductQuantity)
+                        <label for="Quantity">Cantidad</label>
                     </div>
-                    <div class="col-xs-1">
-                        <button class="btn btn-primary" type="submit" value="agregar_producto" name="action">
-                            <i class="glyphicon glyphicon-plus"></i>
+                    <div class="input-field col s2">
+                        @Html.TextBoxFor(x => x.HeaderProductPrice)
+                        <label for="HeaderProductPrice">Precio</label>
+                    </div>
+                    <div class="col s1">
+                        <button class="btn waves-effect waves-light" style="width:100%" value="agregar_producto"  type="submit" name="action">
+                            <i class="material-icons center">+</i>
                         </button>
                     </div>
                 </div>
             </div>
-            <hr />
-            <ul id="facturador-detalle" class="list-group">
+            <ul id="facturador-detalle" class="collection with-header">
                 @if (Model.InvoiceLine.Count > 0)
                 {
-                    <li class="list-group-item">
+                    <li class="collection-header">
                         <div class="row">
-                            <div class="col-xs-1"></div>
-                            <div class="col-xs-5">
+                            <div class="col s1"></div>
+                            <div class="col s5">
                                 <b>Producto</b>
                             </div>
-                            <div class="col-xs-2 text-center">
+                            <div class="col s2 center">
                                 <b>Cantidad</b>
                             </div>
-                            <div class="col-xs-2 text-right">
+                            <div class="col s2 right">
                                 <b>Precio Unitario</b>
                             </div>
-                            <div class="col-xs-2 text-right">
+                            <div class="col s2 right">
                                 <b>Monto</b>
                             </div>
                         </div>
@@ -69,7 +71,7 @@
                 @foreach (var d in Model.InvoiceLine)
                 {
                     var i = Model.InvoiceLine.IndexOf(d);
-                    <li class="list-group-item">
+                    <li class="collection-item">
                         <!-- Modelo -->
                         @Html.Hidden("ComprobanteDetalle[" + i + "].ProductoId", d.ProductId)
                         @Html.Hidden("ComprobanteDetalle[" + i + "].ProductoNombre", d.ProductName)
@@ -77,21 +79,21 @@
                         @Html.Hidden("ComprobanteDetalle[" + i + "].Cantidad", d.Quantity)
                         @Html.Hidden("ComprobanteDetalle[" + i + "].Retirar", d.Retirar, new { @class = "retirar" })
                         <div class="row">
-                            <div class="col-xs-1 text-right">
-                                <button class="btn btn-danger btn-xs btn-block btn-retirar" type="submit" value="retirar_producto" name="action">
-                                    <i class="glyphicon glyphicon-remove"></i>
+                            <div class="col s1">
+                                <button class="btn waves-effect waves-light red btn-retirar" style="width:100%" value="retirar_producto" type="submit" name="action">
+                                    <i class="material-icons center">X</i>
                                 </button>
                             </div>
-                            <div class="col-xs-5">
+                            <div class="col s5">
                                 @d.ProductName
                             </div>
-                            <div class="col-xs-2 text-center">
+                            <div class="col s2 center-align">
                                 @d.Quantity
                             </div>
-                            <div class="col-xs-2 text-right">
+                            <div class="col s2 right-align">
                                 @string.Format("{0:c}", d.UnitPrice)
                             </div>
-                            <div class="col-xs-2 text-right">
+                            <div class="col s2 right-align">
                                 @string.Format("{0:c}", d.Amount())
                             </div>
                         </div>
@@ -99,7 +101,7 @@
                 }
                 @if (Model.InvoiceLine.Count > 0)
                 {
-                    <li class="list-group-item text-right" style="font-size:18px;">
+                    <li class="collection-item right-align" style="font-size:18px;">
                         @string.Format("{0:c}", Model.Amount())
                     </li>
                 }
@@ -112,13 +114,7 @@
 
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
     </div>
 }
 
@@ -140,40 +136,67 @@
 
                 return false;
             })
-            /* Autocomplete de producto, jquery UI */
-            $("#Producto").autocomplete({
-                dataType: 'JSON',
-                source: function (request, response) {
-                    jQuery.ajax({
-                        url: '/Invoices/BuscarProducto',
-                        type: "post",
-                        dataType: "json",
-                        data: {
-                            nombre: request.term
-                        },
-                        success: function (data) {
-                            response($.map(data, function (item) {
-                                return {
-                                    id: item.Id,
-                                    value: item.Name,
-                                    precio: item.Price
-                                }
-                            }))
+
+
+            $(function () {
+                $.ajax({
+                    type: 'post',
+                    url: '/Invoices/BuscarProducto',
+                    success: function (response) {
+                        var productarray = response;
+                        var dataproduct = {};
+                        for (var i = 0; i < productarray.length; i++) {
+                            //console.log(countryArray[i].name);
+                            dataproduct[productarray[i].Name] = {
+                                id: productarray[i].Id,
+                                precio: productarray[i].Price
+                            }; //countryArray[i].flag or null
+                           
                         }
-                    })
-                },
-                select: function (e, ui) {
-                    $("#HeaderProductId").val(ui.item.id);
-                    $("#HeaderProductPrice").val(ui.item.precio);
-                    $("#HeaderProductQuantity").focus();
-                }
-            })
+                        $('#Producto').autocomplete({
+                            data: dataproduct,
+                            limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+                            onAutocomplete: function (val) {
+                                // Callback function when value is autcompleted.
+                                console.log(dataproduct[val]);
+                                console.log(val);
+                                $("#HeaderProductId").val(dataproduct[val].id);
+                                $("#HeaderProductPrice").val(dataproduct[val].precio);
+                                $("#HeaderProductQuantity").focus();
+                            },
+                            minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+                        });
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: '/Invoices/BuscarContacto',
+                    success: function (response) {
+                        var contactarray = response;
+                        var datacontact = {};
+                        for (var i = 0; i < contactarray.length; i++) {
+                            datacontact[contactarray[i].Name] = {
+                                id: contactarray[i].Id
+                            };
+                        }
+                        $('#Contacto').autocomplete({
+                            data: datacontact,
+                            limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+                            onAutocomplete: function (val) {
+                                $("#ContactId").val(datacontact[val].id);
+                            },
+                            minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+                        });
+                    }
+                });
+
+            });
         })
 
         function LimpiarAgregarProducto() {
             $("#HeaderProductId").val("");
             $("#Producto").val("");
-            $("#HeaderProductPrice").val("");
+            $("#HeaderProductPrice").val(0);
             $("#HeaderProductQuantity").val(1);
         }
 </script>
