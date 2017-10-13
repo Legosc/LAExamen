@@ -7,3 +7,7 @@
 main {
     flex: 1 0 auto;
 }
+.carousel.carousel-slider {
+    height: 400px !important;
+}
+    

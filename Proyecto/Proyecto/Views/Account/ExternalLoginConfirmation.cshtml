@@ -11,21 +11,21 @@
 
     <h4>Formulario de asociación</h4>
     <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "red-text" })
     <p class="text-info">
         Se autenticó correctamente con <strong>@ViewBag.LoginProvider</strong>.
         Introduzca un nombre de usuario para este sitio y haga clic en el botón Registrar para finalizar
         el inicio de sesión.
     </p>
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.Email, new { @class = "col m2 control-label" })
+        <div class="col m10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "red-text" })
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col moffset-2 col m10">
             <input type="submit" class="btn btn-default" value="Registrarse" />
         </div>
     </div>
