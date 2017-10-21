@@ -65,6 +65,13 @@ namespace Proyecto.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nombre completo")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Direccion")]
+        public string Address { get; set; }
+        [Required]
         [EmailAddress]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }

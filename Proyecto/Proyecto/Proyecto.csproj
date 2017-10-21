@@ -200,8 +200,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,15 +212,41 @@
     <Compile Include="Migrations\201710120537083_InitialCreate.Designer.cs">
       <DependentUpon>201710120537083_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710160253494_Schema.cs" />
+    <Compile Include="Migrations\201710160253494_Schema.Designer.cs">
+      <DependentUpon>201710160253494_Schema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710170449439_ENTIDADES.cs" />
+    <Compile Include="Migrations\201710170449439_ENTIDADES.Designer.cs">
+      <DependentUpon>201710170449439_ENTIDADES.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710170620180_ENTIDADES1.cs" />
+    <Compile Include="Migrations\201710170620180_ENTIDADES1.Designer.cs">
+      <DependentUpon>201710170620180_ENTIDADES1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710170706599_entity.cs" />
+    <Compile Include="Migrations\201710170706599_entity.Designer.cs">
+      <DependentUpon>201710170706599_entity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710170717213_entity1.cs" />
+    <Compile Include="Migrations\201710170717213_entity1.Designer.cs">
+      <DependentUpon>201710170717213_entity1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710180215532_entity2.cs" />
+    <Compile Include="Migrations\201710180215532_entity2.Designer.cs">
+      <DependentUpon>201710180215532_entity2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attribute.cs" />
     <Compile Include="Models\AttributeValue.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Client.cs" />
-    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Logics\CategoriLogic.cs" />
+    <Compile Include="Models\Logics\EmployeesLogic.cs" />
+    <Compile Include="Models\Logics\UserLogic.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductVariant.cs" />
@@ -376,6 +405,22 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Manage\ChangeUserInfo.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -388,6 +433,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710120537083_InitialCreate.resx">
       <DependentUpon>201710120537083_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710160253494_Schema.resx">
+      <DependentUpon>201710160253494_Schema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710170449439_ENTIDADES.resx">
+      <DependentUpon>201710170449439_ENTIDADES.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710170620180_ENTIDADES1.resx">
+      <DependentUpon>201710170620180_ENTIDADES1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710170706599_entity.resx">
+      <DependentUpon>201710170706599_entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710170717213_entity1.resx">
+      <DependentUpon>201710170717213_entity1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710180215532_entity2.resx">
+      <DependentUpon>201710180215532_entity2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

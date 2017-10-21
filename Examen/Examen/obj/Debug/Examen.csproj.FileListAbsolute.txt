@@ -404,3 +404,10 @@ E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.Migrations.date.resources
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.csproj.GenerateResource.Cache
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.dll
 E:\VS PROJECTOS\EXAMEN\Examen\Examen\obj\Debug\Examen.pdb
+C:\Users\VITECHD\Documents\LAExamen\Examen\Examen\bin\MaterialDesignColors.dll
+C:\Users\VITECHD\Documents\LAExamen\Examen\Examen\obj\Debug\Examen.csprojResolveAssemblyReference.cache
+C:\Users\VITECHD\Documents\LAExamen\Examen\Examen\obj\Debug\Examen.Migrations.dates.resources
+C:\Users\VITECHD\Documents\LAExamen\Examen\Examen\obj\Debug\Examen.Migrations.mejorasdate.resources
+C:\Users\VITECHD\Documents\LAExamen\Examen\Examen\obj\Debug\Examen.Migrations.datetime.resources
+C:\Users\VITECHD\Documents\LAExamen\Examen\Examen\obj\Debug\Examen.Migrations.datesusers.resources
+C:\Users\VITECHD\Documents\LAExamen\Examen\Examen\obj\Debug\Examen.Migrations.date.resources

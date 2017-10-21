@@ -1,4 +1,5 @@
 ﻿@model Proyecto.Models.RegisterViewModel
+
 @{
     ViewBag.Title = "Registrarse";
 }
@@ -12,6 +13,14 @@
     <hr />
     @Html.ValidationSummary("", new { @class = "red-text" })
     <div class="row card-panel">
+        <div class="input-field">
+            @Html.TextBoxFor(m => m.Name)
+            @Html.LabelFor(m => m.Name)
+        </div>
+        <div class="input-field">
+            @Html.TextBoxFor(m => m.Address)
+            @Html.LabelFor(m => m.Address)
+        </div>
         <div class="input-field">
             @Html.TextBoxFor(m => m.Email)
             @Html.LabelFor(m => m.Email)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,9 +8,10 @@ namespace Proyecto.Models
 {
     public class Attribute
     {
-        public Guid Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         public string Description { get; set; }
-
-        public ICollection<AttributeValue> AttributeValue { get; set; }
+        public virtual ProductVariant ProductVariant { get; set; }
+        public ICollection<AttributeValue> AttributeValues { get; set; }
     }
 }

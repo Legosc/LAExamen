@@ -1,0 +1,90 @@
+﻿@model Proyecto.Models.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Employee</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+
+        <div class="row">
+            
+            
+            <div class="input-field">
+                @Html.HiddenFor(x => x.UserId, new { id = "UserId"})
+                @Html.TextBoxFor(x => x.UserName, new { id = "Usuario", @autocomplete = "off" })
+
+                <label for="Usuario">Usuario</label>
+            </div>
+            
+                @Html.CheckBoxFor(x => x.Actived, new { @type = "checkbox"})
+                <label for="Actived">Activo</label>
+
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $("input[type='hidden']").each(function (index, element) {
+        $(this).appendTo($(element).parent());
+    });
+
+    $(document).ready(function () {
+        
+        $(function () {
+            $.ajax({
+                type: 'post',
+                url: '/Employees/BuscarUsuario',
+                success: function (response) {
+                    var userarray = response;
+                    var datauser = {};
+                    for (var i = 0; i < userarray.length; i++) {
+                        //console.log(countryArray[i].name);
+                        datauser[userarray[i].Name] = {
+                            id: userarray[i].Id
+                        }; //countryArray[i].flag or null
+                    }
+                    $('#Usuario').autocomplete({
+                        data: datauser,
+                        limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+                        onAutocomplete: function (data) {
+                            // Callback function when value is autcompleted.
+                            console.log(datauser[data].id);
+                            $("#UserId").val(datauser[data].id);
+                        },
+                        minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+                    });
+                }
+            });
+
+        });
+    })
+
+
+
+
+    
+    </script>
+}

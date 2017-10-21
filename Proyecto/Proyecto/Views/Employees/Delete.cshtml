@@ -1,0 +1,33 @@
+﻿@model Proyecto.Models.Employee
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <div class="row">
+        <div class="input-field col s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="icon_prefix" type="text" value="@Html.DisplayFor(model => model.Contact.Name)" class="validate" disabled>
+            <label for="icon_prefix">Nombre</label>
+        </div>
+
+        @Html.HiddenFor(x => x.UserId, new { id = "UserId" })
+
+        @Html.CheckBoxFor(x => x.Actived, new { @type = "checkbox", @disabled = "disabled" })
+        <label for="Actived">Activo</label>
+    </div>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

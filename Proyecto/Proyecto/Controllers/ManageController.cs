@@ -7,15 +7,17 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Proyecto.Models;
+using System.Data.Entity;
+using System.Net;
 
 namespace Proyecto.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
         public ManageController()
         {
         }
@@ -66,6 +68,9 @@ namespace Proyecto.Controllers
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
+                Id = userId,
+                Name = GetName(),
+                Address = GetAddress(),
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
@@ -276,6 +281,37 @@ namespace Proyecto.Controllers
             return View(model);
         }
 
+
+
+        public ActionResult ChangeUserInfo(string id)
+        {
+            
+            var model = UserManager.FindById(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(model);
+        }
+
+        // POST: Products/Edit/5
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeUserInfo(ApplicationUser model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(model).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+           
+            return View(model);
+        }
+
         //
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
@@ -352,7 +388,24 @@ namespace Proyecto.Controllers
                 ModelState.AddModelError("", error);
             }
         }
-
+        private string GetName()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user != null)
+            {
+                return user.Name;
+            }
+            return "Sin Nombre";
+        }
+        private string GetAddress()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user != null)
+            {
+                return user.Address;
+            }
+            return "Sin Direccion";
+        }
         private bool HasPassword()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());

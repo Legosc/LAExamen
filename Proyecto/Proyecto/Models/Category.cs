@@ -9,10 +9,30 @@ namespace Proyecto.Models
 {
     public class Category
     {
-        public Guid Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         public string Name { get; set; }
-        [Required(AllowEmptyStrings = true)]
-        public string FatherCategory { get; set; }
-       
+        
+        
+        public int? FatherCategoryID { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
+    public  class CategoryViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int? FatherCategoryID { get; set; }
+        public string FatherCategoryName { get; set; }
+
+        public Category ToModel()
+        {
+            var Category = new Category();
+            Category.Name = this.Name;
+            Category.FatherCategoryID = this.FatherCategoryID;
+
+            return Category;
+        }
+    }
+    
 }

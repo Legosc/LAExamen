@@ -9,7 +9,9 @@ namespace Proyecto
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery-ui-{version}.js"));
+                        "~/Scripts/jquery.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
+                       "~/Scripts/jquery-ui.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -19,12 +21,13 @@ namespace Proyecto
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/respond.js",
-                      "~/Scripts/materialize/materialize.js"
-                     ));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                    "~/Scripts/materialize.js",
+                    "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/Site.css", "~/Content/materialize/css/materialize.css" ));
+                      "~/Content/materialize.css", "~/Content/site.css"));
+
         }
     }
 }
