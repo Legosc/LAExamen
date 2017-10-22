@@ -28,6 +28,7 @@ namespace Proyecto.Models
         public Category ToModel()
         {
             var Category = new Category();
+            Category.Id = this.Id;
             Category.Name = this.Name;
             Category.FatherCategoryID = this.FatherCategoryID;
 

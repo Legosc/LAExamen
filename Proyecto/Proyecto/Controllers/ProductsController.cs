@@ -39,9 +39,41 @@ namespace Proyecto.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            return View();
+            
+            return View(new ProductViewModel());
         }
+        public  JsonResult AddProductAsync(string Name, int? CategoryId)
+        {
+            Product product = new Product();
+            int guardado;
+            if (Name != "")
+            {
+                product.Name = Name;
+                product.CategoryId = CategoryId;
+                db.Products.Add(product);
+                guardado =  db.SaveChanges();
+            }
+            return Json(product);
+        }
+        public JsonResult AddVariant(int? Id, int Product, int Price, int? CategoryId)
+        {
+            
+            ProductVariant ProductVariant = new ProductVariant();
+            int guardado;
+            if (Price != 0)
+            {
+                if (Id == 0)
+                {
+                    ProductVariant.ProductId = Product;
+                    ProductVariant.Price = Price;
+                    db.Variants.Add(ProductVariant);
+                    guardado = db.SaveChanges();
+                    return Json(ProductVariant);
+                }
+            }
+            return Json(false);
+        }
+
 
         // POST: Products/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
@@ -50,14 +82,24 @@ namespace Proyecto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,CategoryId")] Product product)
         {
-            if (ModelState.IsValid)
+            if (product.Id == 0)
             {
-                db.Products.Add(product);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Products.Add(product);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
             return View(product);
         }
 
@@ -84,6 +126,7 @@ namespace Proyecto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,CategoryId")] Product product)
         {
+
             if (ModelState.IsValid)
             {
                 db.Entry(product).State = EntityState.Modified;

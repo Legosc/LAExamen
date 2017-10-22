@@ -1,4 +1,4 @@
-﻿@model Proyecto.Models.Product
+﻿@model Proyecto.Models.ProductViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -10,39 +10,191 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Product</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id, new { id = "Id" })
+        <div class="card-panel">
+            <h5 class="card-title">Producto</h5>
+            <div class="row">
+                <div class="input-field col s12">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { id = "Name", @autocomplete = "off" } })
+                    <label for="Name">Nombre</label>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field col s12">
+                    @Html.HiddenFor(x => x.CategoryId, new { id = "CategoryId", onchange = "OnHiddenValueChanged" })
+                    <input type="text" id="CategoryName" autocomplete="off">
+                    <label for="CategoryName">Categoria</label>
+                </div>
             </div>
         </div>
+        
+        <a class="waves-effect waves-light btn modal-trigger" onclick="OpenDialog()"><i class="material-icons left">add</i>Agregar Variante</a>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Variante</h4>
+                <div class="row">
+                    <div class="input-field col s12">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { id = "Price", @autocomplete = "off" } })
+                        <label for="Name">Precio</label>
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <ul id="Atributos" class="collection with-header">
+                        @if (Model.Attributes.Count > 0)
+                {
+                            <li class="collection-header">
+                                <div class="row">
+                                    <div class="col s1"></div>
+                                    <div class="col s5">
+                                        <b>Atributo</b>
+                                    </div>
+                                    <div class="col s2 center">
+                                        <b>Valor</b>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        @foreach (var d in Model.Attributes)
+                {
+                    var i = Model.Attributes.IndexOf(d);
+                            <li class="collection-item">
+                                <!-- Modelo -->
+                                @Html.Hidden("Attributes[" + i + "].Id", d.Id)
+                                @Html.Hidden("Attributes[" + i + "].Description", d.Description)
+                                @Html.Hidden("Attributes[" + i + "].AttrValue", d.AttrValue)
+                                @Html.Hidden("Attributes[" + i + "].Retirar", d.Retirar, new { @class = "retirar" })
+                                <div class="row">
+                                    <div class="col s1">
+                                        <button class="btn waves-effect waves-light red btn-retirar" style="width:100%" value="retirar_producto" type="submit" name="action">
+                                            <i class="material-icons center">X</i>
+                                        </button>
+                                    </div>
+                                    <div class="col s5">
+                                        @d.ProductName
+                                    </div>
+                                    <div class="col s2 center-align">
+                                        @d.Quantity
+                                    </div>
+                                    <div class="col s2 right-align">
+                                        @string.Format("{0:c}", d.UnitPrice)
+                                    </div>
+                                    <div class="col s2 right-align">
+                                        @string.Format("{0:c}", d.Amount())
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        @if (Model.InvoiceLine.Count > 0)
+                {
+                            <li class="collection-item right-align" style="font-size:18px;">
+                                @string.Format("{0:c}", Model.Amount())
+                            </li>
+                        }
+                    </ul>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="">Agregar</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
             </div>
         </div>
-    </div>
+        
+@if (Model.ProductVariants.Count > 0)
+{
+        <div class="card-panel">
+            <h5 class="card-title">Variantes</h5>
+            <div class="row">
+                <ul id="Variantes" class="collection with-header">
+                   
+                        <li class="collection-header">
+                            <div class="row">
+                                <div class="col s1"></div>
+                                <div class="col s5">
+                                    <b>Descripcion</b>
+                                </div>
+                                <div class="col s2 center">
+                                    <b>Precio</b>
+                                </div>
+                                
+                            </div>
+                        </li>
+                   
+                </ul>
+            </div>
+        </div>
+}
+        <button class="btn waves-effect waves-light" value="Create" type="submit" name="action">
+            <i class="material-icons center">save</i><span>Guardar</span>
+        </button>
+        
+            </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+                <script>
+                    function OpenDialog() {
+                        var Id = $("#Id").val();
+                        if (Id== 0) {
+                                var Name = $("#Name").val();
+                                var CategoryId = $("#CategoryId").val();
+                                $.ajax({
+                                    type: 'post',
+                                    url: '/Products/AddProductAsync',
+                                    data: {
+                                        'Name': Name,
+                                        'CategoryId': CategoryId
+                                    },
+                                    success: function (response) {
+                                        $("#Id").val(response.Id);
+                                    }
+                                });
+                        }
+                        $('#modal1').modal('open');
+                    }
+                    $(document).ready(function () {
+                        $(function () {
+                            var id = $("#Id").val();
+                           
+                            $.ajax({
+                                type: 'post',
+                                url: '/Categories/BuscarCategorias',
+                                data: ('Id=').concat(id),
+                                success: function (response) {
+                                    var CatArray = response;
+                                    var dataCat = {};
+                                    for (var i = 0; i < CatArray.length; i++) {
+                                        //console.log(countryArray[i].name);
+                                        dataCat[CatArray[i].Name] = {
+                                            id: CatArray[i].Id
+                                        }; //countryArray[i].flag or null
+                                    }
+                                    $('#CategoryName').autocomplete({
+                                        data: dataCat,
+                                        limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+                                        onAutocomplete: function (data) {
+                                            // Callback function when value is autcompleted.
+
+                                            $("#CategoryId").val(dataCat[data].id);
+                                        },
+                                        minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+                                    });
+                                }
+                            });
+
+                        });
+                    });
+                </script>
+            }

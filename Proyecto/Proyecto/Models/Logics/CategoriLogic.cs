@@ -7,14 +7,14 @@ namespace Proyecto.Models.Logics
 {
     public class CategoriLogic
     {
-        public List<Category> Buscar()
+        public List<Category> Buscar(int? id)
         {
             using (var context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
                 context.Configuration.ProxyCreationEnabled = false;
 
-                var Categories = context.Categories.OrderBy(x => x.Name)
+                var Categories = context.Categories.Where(x => x.Id != id).OrderBy(x => x.Name)
                                         .ToList();
 
                 return Categories;

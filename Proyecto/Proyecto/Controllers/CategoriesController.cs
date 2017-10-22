@@ -17,22 +17,30 @@ namespace Proyecto.Controllers
         private CategoriLogic cl = new CategoriLogic();
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public JsonResult BuscarCategorias()
+        public JsonResult BuscarCategorias(int? Id)
         {
-            return Json(cl.Buscar());
+            return Json(cl.Buscar(Id));
         }
         public JsonResult VerificaCat(int Idcat)
         {
+
             return Json(cl.VerifCategoria(Idcat));
         }
         // GET: Categories
         public ActionResult Index()
         {
+
+
+            List<CategoryViewModel> innerFinal = (from a in db.Categories
+                                                  join b in db.Categories on a.FatherCategoryID equals b.Id into ps
+                                                  from subpet in ps.DefaultIfEmpty()
+                                                  select new CategoryViewModel { Id = a.Id, Name = a.Name, FatherCategoryID = a.FatherCategoryID, FatherCategoryName = subpet.Name }).ToList();
+/*
             List<CategoryViewModel> innerFinal = (from l in db.Categories
                        from r in db.Categories
                        where l.FatherCategoryID == r.Id
                        select new CategoryViewModel { Id = l.Id, Name = l.Name, FatherCategoryID = r.Id, FatherCategoryName = r.Name }).ToList()
-                ;
+                ;*/
             return View(innerFinal);
         }
 
@@ -44,7 +52,7 @@ namespace Proyecto.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Category category = db.Categories.Find(id);
-            if (category == null)
+            if (category == null) 
             {
                 return HttpNotFound();
             }
@@ -97,7 +105,12 @@ namespace Proyecto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            CategoryViewModel category = (from a in db.Categories
+                                 join b in db.Categories on a.FatherCategoryID equals b.Id into ps
+                                 from subpet in ps.DefaultIfEmpty()
+                                          where a.Id == id
+                                          select new CategoryViewModel { Id = a.Id, Name = a.Name, FatherCategoryID = a.FatherCategoryID, FatherCategoryName = subpet.Name }).ToList().Find(x => x.Id == id);
+            
             if (category == null)
             {
                 return HttpNotFound();
@@ -110,13 +123,14 @@ namespace Proyecto.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,FatherCategoryID")] Category category)
+        public ActionResult Edit( CategoryViewModel category)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                db.Entry(category.ToModel()).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                
             }
             return View(category);
         }

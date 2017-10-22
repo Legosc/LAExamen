@@ -13,6 +13,7 @@ namespace Proyecto.Models
         public string Address { get; set; }
         public Client Client { get; set; }
         public Employee Employee { get; set; }
+        
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -26,7 +27,7 @@ namespace Proyecto.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
-        
+        public  DbSet<ProductVariant> Variants { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
@@ -93,5 +94,6 @@ namespace Proyecto.Models
 
         }
 
+        public System.Data.Entity.DbSet<Proyecto.Models.Attribute> Attributes { get; set; }
     }
 }

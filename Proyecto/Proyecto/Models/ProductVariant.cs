@@ -18,4 +18,13 @@ namespace Proyecto.Models
 
         public virtual ICollection<Attribute> Attributes { get; set; }
     }
+
+
+    public partial class ProductVariantViewModel
+    {
+        public int Id { get; set; }
+        public int ProductId { get; set; }
+        public int Price { get; set; }
+        
+    }
 }

@@ -14,4 +14,11 @@ namespace Proyecto.Models
         public virtual ProductVariant ProductVariant { get; set; }
         public ICollection<AttributeValue> AttributeValues { get; set; }
     }
+    public class AttributeViewModel
+    {
+      
+        public int Id { get; set; }
+        public string Description { get; set; }
+       
+    }
 }
