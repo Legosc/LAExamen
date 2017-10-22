@@ -41,22 +41,40 @@
                         <label for="Name">Precio</label>
                         @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                     </div>
-
                     <ul id="Atributos" class="collection with-header">
-                        @if (Model.Attributes.Count > 0)
-                {
+                        
                             <li class="collection-header">
                                 <div class="row">
-                                    <div class="col s1"></div>
+                                    
                                     <div class="col s5">
                                         <b>Atributo</b>
                                     </div>
-                                    <div class="col s2 center">
+                                    <div class="col s3 center">
                                         <b>Valor</b>
                                     </div>
+                                    <div class="col s2"></div>
+                                    <div class="col s2"></div>
                                 </div>
                             </li>
-                        }
+                        <li class="collection-item">
+                            <!-- Modelo -->
+                            
+                            <div class="row">
+                                @Html.HiddenFor(x => x.VariantId)
+                                <div class="col s5">
+                                   @Html.EditorFor(model => model.Price, new { htmlAttributes = new { id = "Price", @autocomplete = "off" } })
+                                </div>
+                                <div class="col s3 center-align">
+                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { id = "Price", @autocomplete = "off" } })
+                                </div>
+                                <div class="col s2">
+                                    <a class="btn-floating btn-large waves-effect waves-light" onclick="AddVarriant()"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="col s2">
+                                    <a class="btn-floating btn-large waves-effect waves-light red" onclick="DeleteAttrib()"><i class="material-icons">delete</i></a>
+                                </div>
+                            </div>
+                        </li>
                         @foreach (var d in Model.Attributes)
                 {
                     var i = Model.Attributes.IndexOf(d);
@@ -64,41 +82,28 @@
                                 <!-- Modelo -->
                                 @Html.Hidden("Attributes[" + i + "].Id", d.Id)
                                 @Html.Hidden("Attributes[" + i + "].Description", d.Description)
-                                @Html.Hidden("Attributes[" + i + "].AttrValue", d.AttrValue)
-                                @Html.Hidden("Attributes[" + i + "].Retirar", d.Retirar, new { @class = "retirar" })
+
                                 <div class="row">
-                                    <div class="col s1">
+
+                                    <div class="col s5">
+                                        @d.Id
+                                    </div>
+                                    <div class="col s3">
+                                        @d.Description
+                                    </div>
+                                    <div class="col s2">
+
+                                    </div>
+                                    <div class="col s2">
                                         <button class="btn waves-effect waves-light red btn-retirar" style="width:100%" value="retirar_producto" type="submit" name="action">
-                                            <i class="material-icons center">X</i>
+                                            <i class="material-icons center">delete</i>
                                         </button>
                                     </div>
-                                    <div class="col s5">
-                                        @d.ProductName
-                                    </div>
-                                    <div class="col s2 center-align">
-                                        @d.Quantity
-                                    </div>
-                                    <div class="col s2 right-align">
-                                        @string.Format("{0:c}", d.UnitPrice)
-                                    </div>
-                                    <div class="col s2 right-align">
-                                        @string.Format("{0:c}", d.Amount())
-                                    </div>
+
                                 </div>
                             </li>
                         }
-                        @if (Model.InvoiceLine.Count > 0)
-                {
-                            <li class="collection-item right-align" style="font-size:18px;">
-                                @string.Format("{0:c}", Model.Amount())
-                            </li>
-                        }
                     </ul>
-
-
-
-
-
                 </div>
             </div>
             <div class="modal-footer">
@@ -126,7 +131,6 @@
                                 
                             </div>
                         </li>
-                   
                 </ul>
             </div>
         </div>
@@ -134,10 +138,8 @@
         <button class="btn waves-effect waves-light" value="Create" type="submit" name="action">
             <i class="material-icons center">save</i><span>Guardar</span>
         </button>
-        
             </div>
 }
-
             <div>
                 @Html.ActionLink("Back to List", "Index")
             </div>
@@ -163,6 +165,34 @@
                                 });
                         }
                         $('#modal1').modal('open');
+                    }
+                    function AddVarriant() {
+                        var Id = $("#VariantId").val();
+                        if (Id == 0) {
+                            var Price = $("#Price").val();
+                            var ProductId = $("#ProductId").val();
+                            $.ajax({
+                                type: 'post',
+                                url: '/Products/AddVariant',
+                                data: {
+                                    'Price': Price,
+                                    'ProductId': ProductId
+                                },
+                                success: function (response) {
+                                    $("#VariantId").val(response.Id);
+                                    AddAttribute();
+                                },
+                                error: {
+
+                                }
+                            });
+                        }
+                        else {
+                            AddAttribute();
+                        }
+                    }
+                    function AddAttribute() {
+
                     }
                     $(document).ready(function () {
                         $(function () {

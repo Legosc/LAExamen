@@ -27,7 +27,8 @@ namespace Proyecto.Models
         public string Name { get; set; }
         public int? CategoryId { get; set; }
         public int Price { get; set; }
-
+        public int VariantId { get; set; }
+        public int AttribtId { get; set; }
         #endregion
 
         #region Contenido

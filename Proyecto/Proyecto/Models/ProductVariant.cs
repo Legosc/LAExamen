@@ -16,7 +16,7 @@ namespace Proyecto.Models
         public int Price { get; set; }
         public virtual Product  Product { get; set; }
 
-        public virtual ICollection<Attribute> Attributes { get; set; }
+        public virtual ICollection<VariantAttribute> VariantAttribute { get; set; }
     }
 
 
