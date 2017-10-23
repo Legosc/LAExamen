@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -134,16 +134,15 @@
                     @foreach (var d in Model.ProductVariants)
                     {
                         var i = Model.ProductVariants.IndexOf(d);
-                        <li class="collection-item">
+                        <li class="collection-item" id="@d.Id">
                             <!-- Modelo -->
-                            @Html.Hidden("Atributo[" + i + "].Id", d.Id)
-                            @Html.Hidden("Atributo[" + i + "].Price", d.Price)
-                            @Html.Hidden("Atributo[" + i + "].Retirar", d.Retirar)
+                            @Html.Hidden("Variante[" + i + "].Id", d.Id)
+                            @Html.Hidden("Variante[" + i + "].Price", d.Price)
+                            @Html.Hidden("Variante[" + i + "].Retirar", d.Retirar)
                             <div class="row">
                                 <div class="col s1">
-                                    <button class="btn waves-effect waves-light red btn-retirar" onclick="DeleteVariant()" style="width:100%" value="retirar_variante" type="submit" name="action">
-                                        <i class="material-icons center">delete</i>
-                                    </button>
+                                    <a class="waves-effect waves-light btn red" onclick="DeleteVariant(@d.Id)"><i class="material-icons left">delete</i></a>
+                                    
                                 </div>
                                 <div class="col s5">
                                     @d.Id
@@ -320,8 +319,22 @@
                             }
                         });
                     }
-                    function DeleteVariant() {
-                        console.log("Delete");
+                    function DeleteVariant(obj) {
+                        $.ajax({
+                            type: 'post',
+                            url: '/Products/DeleteVariant',
+                            data: {
+                                'ProductVariantId': obj
+                            },
+                            success: function (response) {
+                                $(('#Variantes #').concat(response.Id)).remove();
+                                console.log(response);
+                            },
+                            error: function (response) {
+
+                            }
+                        });
+                        console.log(obj);
                     }
                     $(document).ready(function () {
                         $(function () {

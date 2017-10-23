@@ -127,6 +127,15 @@ namespace Proyecto.Controllers
             db.SaveChanges();
             return Json(model);
         }
+        public JsonResult DeleteVariant(int ProductVariantId)
+        {
+            ProductVariant ProductVariant = db.Variants.Find(ProductVariantId);
+            db.Variants.Remove(ProductVariant);
+            db.SaveChanges();
+            return Json(ProductVariant);
+        }
+
+        
         // POST: Products/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -174,11 +183,8 @@ namespace Proyecto.Controllers
                     db.SaveChanges();
                 }
             }
-            if (action == "retirar_variante")
-            {
-                product.RetirarVariante();
-            }
-                product.ProductVariants = (from p in db.Variants
+           
+            product.ProductVariants = (from p in db.Variants
                                        where p.ProductId == product.Id
                                         select new ProductVariantViewModel
                                         {
