@@ -16,7 +16,7 @@ namespace Proyecto.Models
         public int Price { get; set; }
         public virtual Product  Product { get; set; }
 
-        public virtual ICollection<VariantAttribute> VariantAttribute { get; set; }
+        public virtual ICollection<VariantAttribute> VariantAttributes { get; set; }
     }
 
 
@@ -25,6 +25,7 @@ namespace Proyecto.Models
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int Price { get; set; }
-        
+        public bool Retirar { get; set; }
+
     }
 }

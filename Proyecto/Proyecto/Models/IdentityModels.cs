@@ -26,8 +26,10 @@ namespace Proyecto.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
-        public  DbSet<ProductVariant> Variants { get; set; }
+        public DbSet<VariantAttribute> VariantAttributes { get; set; }
+        public DbSet<AttributeValue> AttributeValues { get; set; }
+        public DbSet<Attribute> Attributes { get; set; }
+        public DbSet<ProductVariant> Variants { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
@@ -72,10 +74,12 @@ namespace Proyecto.Models
                 .HasOptional(e => e.Category)
                 .WithMany(e => e.Products)
                 .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<ProductVariant>()
-                .HasMany(e => e.Attributes)
+                .HasMany(e => e.VariantAttributes)
                 .WithRequired(e => e.ProductVariant)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
+
             modelBuilder.Entity<Attribute>()
                 .HasMany(e => e.AttributeValues)
                 .WithRequired(e => e.Attributes)
@@ -91,9 +95,10 @@ namespace Proyecto.Models
                 .WithRequired(e => e.Sale)
                 .WillCascadeOnDelete(true);
             
+            
 
         }
 
-        public System.Data.Entity.DbSet<Proyecto.Models.Attribute> Attributes { get; set; }
+        
     }
 }

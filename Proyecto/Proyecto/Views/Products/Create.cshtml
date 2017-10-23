@@ -36,13 +36,13 @@
             <div class="modal-content">
                 <h4>Variante</h4>
                 <div class="row">
+                    @Html.HiddenFor(x => x.VariantId, new { htmlAttributes = new { id = "VariantId" } })
                     <div class="input-field col s12">
                         @Html.EditorFor(model => model.Price, new { htmlAttributes = new { id = "Price", @autocomplete = "off" } })
                         <label for="Name">Precio</label>
                         @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                     </div>
                     <ul id="Atributos" class="collection with-header">
-                        
                             <li class="collection-header">
                                 <div class="row">
                                     
@@ -53,26 +53,26 @@
                                         <b>Valor</b>
                                     </div>
                                     <div class="col s2"></div>
-                                    <div class="col s2"></div>
+                                    
                                 </div>
                             </li>
                         <li class="collection-item">
                             <!-- Modelo -->
                             
                             <div class="row">
-                                @Html.HiddenFor(x => x.VariantId)
                                 <div class="col s5">
-                                   @Html.EditorFor(model => model.Price, new { htmlAttributes = new { id = "Price", @autocomplete = "off" } })
+                                     @Html.HiddenFor(model => model.AttributeId, new { id = "AttributeId"})
+
+                                   @Html.EditorFor(model => model.AttributeName, new { htmlAttributes = new { id = "AttributeName", @autocomplete = "off" } })
                                 </div>
-                                <div class="col s3 center-align">
-                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { id = "Price", @autocomplete = "off" } })
+                                <div class="col s3 center-align">    
+                                    @Html.HiddenFor(x => x.AttributeValueId, new { id = "AttributeValueId" })
+                                    @Html.EditorFor(model => model.AttributeValue, new { htmlAttributes = new { id = "AttributeValue", @autocomplete = "off" } })
                                 </div>
                                 <div class="col s2">
                                     <a class="btn-floating btn-large waves-effect waves-light" onclick="AddVarriant()"><i class="material-icons">add</i></a>
                                 </div>
-                                <div class="col s2">
-                                    <a class="btn-floating btn-large waves-effect waves-light red" onclick="DeleteAttrib()"><i class="material-icons">delete</i></a>
-                                </div>
+                                
                             </div>
                         </li>
                         @foreach (var d in Model.Attributes)
@@ -91,9 +91,7 @@
                                     <div class="col s3">
                                         @d.Description
                                     </div>
-                                    <div class="col s2">
-
-                                    </div>
+                                    
                                     <div class="col s2">
                                         <button class="btn waves-effect waves-light red btn-retirar" style="width:100%" value="retirar_producto" type="submit" name="action">
                                             <i class="material-icons center">delete</i>
@@ -107,7 +105,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="">Agregar</a>
+                <button class="modal-action modal-close waves-effect waves-green btn-flat" value="Variant" type="submit" name="action">
+                    Aceptar
+                </button>
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
             </div>
         </div>
@@ -131,6 +131,30 @@
                                 
                             </div>
                         </li>
+                    @foreach (var d in Model.ProductVariants)
+                    {
+                        var i = Model.ProductVariants.IndexOf(d);
+                        <li class="collection-item">
+                            <!-- Modelo -->
+                            @Html.Hidden("Atributo[" + i + "].Id", d.Id)
+                            @Html.Hidden("Atributo[" + i + "].Price", d.Price)
+                            @Html.Hidden("Atributo[" + i + "].Retirar", d.Retirar)
+                            <div class="row">
+                                <div class="col s1">
+                                    <button class="btn waves-effect waves-light red btn-retirar" onclick="DeleteVariant()" style="width:100%" value="retirar_variante" type="submit" name="action">
+                                        <i class="material-icons center">delete</i>
+                                    </button>
+                                </div>
+                                <div class="col s5">
+                                    @d.Id
+                                </div>
+                                <div class="col s2 center-align">
+                                    @d.Price
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    
                 </ul>
             </div>
         </div>
@@ -168,36 +192,140 @@
                     }
                     function AddVarriant() {
                         var Id = $("#VariantId").val();
-                        if (Id == 0) {
                             var Price = $("#Price").val();
-                            var ProductId = $("#ProductId").val();
+                            var ProductId = $("#Id").val();
                             $.ajax({
                                 type: 'post',
                                 url: '/Products/AddVariant',
                                 data: {
-                                    'Price': Price,
-                                    'ProductId': ProductId
+                                    'Id': Id,
+                                    'ProductId': ProductId,
+                                    'Price': Price
+                                    
                                 },
                                 success: function (response) {
+                                   
                                     $("#VariantId").val(response.Id);
-                                    AddAttribute();
+                                    VerfProductAttribute();
                                 },
-                                error: {
+                                error: function (response){
+                                    console.log("Error Creando Vairante")
+                                }
+                            });
+                        
+                    }
+                    function VerfProductAttribute() {
 
+                        var AttributeName = $("#AttributeName").val();
+                        var AttributeValue = $("#AttributeValue").val();
+                        if (AttributeName != '' && AttributeValue != '') {
+                            $.ajax({
+                                type: 'post',
+                                url: '/Products/FindAttribute',
+                                data: {
+                                    'AttributeName': AttributeName
+                                },
+                                success: function (response) {
+                                    $("#AttributeId").val(response.Id);
+                                    FindValueAttribute();
+                                },
+                                error: function (response) {
+                                    AddAttribute();
                                 }
                             });
                         }
-                        else {
-                            AddAttribute();
-                        }
+                        
                     }
-                    function AddAttribute() {
+                    function FindValueAttribute() {
+                        var AttributeId = $("#AttributeId").val();
+                        var AttributeValue = $("#AttributeValue").val();
+                        console.log(AttributeValue);
+                        console.log(AttributeId);
+                        $.ajax({
+                            type: 'post',
+                            url: '/Products/FindValueAttribute',
+                            data: {
+                                'AttributeId': AttributeId,
+                                'AttributeValue': AttributeValue
+                            },
+                            success: function (response) {
+                                console.log(response.Id);
+                                $("#AttributeValueId").val(response);
+                                AddVarriantAtribute();
+                            },
+                            error: function (response) {
+                                console.log("Me cago");
+                                AddValueAttribute();
+                            }
+                        });
+                    }
 
+                    function AddAttribute() {
+                        var AttributeName = $("#AttributeName").val();
+                        var AttributeId = $("#AttributeId").val();
+                        $.ajax({
+                            type: 'post',
+                            url: '/Products/AddAttribute',
+                            data: {
+                                'AttributeName': AttributeName
+                            },
+                            success: function (response) {
+                                $("#AttributeId").val(response.Id);
+                                AddValueAttribute();
+
+                            },
+                            error: function (response){
+
+                            }
+                        });
+                    }
+                    function AddValueAttribute() {
+                        var AttributeId = $("#AttributeId").val();
+                        var AttributeValue = $("#AttributeValue").val();
+                        console.log(AttributeId);
+                        console.log(AttributeValue);
+                        $.ajax({
+                            type: 'post',
+                            url: '/Products/AddValueAttribute',
+                            data: {
+                                'AttributeId': AttributeId,
+                                'AttributeValue': AttributeValue
+                            },
+                            success: function (response) {
+                                $("#AttributeValueId").val(response.Id);
+                                AddVarriantAtribute();
+                            },
+                            error: function (response) {
+
+                            }
+                        });
+                    }
+                    function AddVarriantAtribute() {
+                        console.log("LLegamos");
+                        console.log(VariantId.defaultValue);
+                        AttributeValueId = $("#AttributeValueId").val();
+                        console.log(AttributeValueId);
+                        $.ajax({
+                            type: 'post',
+                            url: '/Products/AddVarriantAtribute',
+                            data: {
+                                'VariantId': VariantId.defaultValue,
+                                'AttributeValueId': AttributeValueId
+                            },
+                            success: function (response) {
+                                
+                            },
+                            error: function (response){
+
+                            }
+                        });
+                    }
+                    function DeleteVariant() {
+                        console.log("Delete");
                     }
                     $(document).ready(function () {
                         $(function () {
                             var id = $("#Id").val();
-                           
                             $.ajax({
                                 type: 'post',
                                 url: '/Categories/BuscarCategorias',

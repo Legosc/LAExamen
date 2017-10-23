@@ -236,6 +236,22 @@
     <Compile Include="Migrations\201710180215532_entity2.Designer.cs">
       <DependentUpon>201710180215532_entity2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710220726345_attributes.cs" />
+    <Compile Include="Migrations\201710220726345_attributes.Designer.cs">
+      <DependentUpon>201710220726345_attributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710220745367_attributes1.cs" />
+    <Compile Include="Migrations\201710220745367_attributes1.Designer.cs">
+      <DependentUpon>201710220745367_attributes1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710230246335_LimpiarErrores.cs" />
+    <Compile Include="Migrations\201710230246335_LimpiarErrores.Designer.cs">
+      <DependentUpon>201710230246335_LimpiarErrores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710230318571_Mejoras.cs" />
+    <Compile Include="Migrations\201710230318571_Mejoras.Designer.cs">
+      <DependentUpon>201710230318571_Mejoras.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attribute.cs" />
@@ -247,6 +263,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Logics\CategoriLogic.cs" />
     <Compile Include="Models\Logics\EmployeesLogic.cs" />
+    <Compile Include="Models\Logics\ProductLogic.cs" />
     <Compile Include="Models\Logics\UserLogic.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
@@ -458,6 +475,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710180215532_entity2.resx">
       <DependentUpon>201710180215532_entity2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710220726345_attributes.resx">
+      <DependentUpon>201710220726345_attributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710220745367_attributes1.resx">
+      <DependentUpon>201710220745367_attributes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710230246335_LimpiarErrores.resx">
+      <DependentUpon>201710230246335_LimpiarErrores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710230318571_Mejoras.resx">
+      <DependentUpon>201710230318571_Mejoras.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -206,7 +206,6 @@ C:\Users\LegoSC\Documents\Nueva carpeta\Proyecto\obj\Debug\Proyecto.Migrations.e
 C:\Users\LegoSC\Documents\Nueva carpeta\Proyecto\obj\Debug\Proyecto.csproj.GenerateResource.Cache
 C:\Users\LegoSC\Documents\Nueva carpeta\Proyecto\obj\Debug\Proyecto.dll
 C:\Users\LegoSC\Documents\Nueva carpeta\Proyecto\obj\Debug\Proyecto.pdb
-C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.csprojResolveAssemblyReference.cache
 E:\VS PROJECTOS\EXAMEN\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.csprojResolveAssemblyReference.cache
 E:\VS PROJECTOS\EXAMEN\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.Migrations.InitialCreate.resources
 E:\VS PROJECTOS\EXAMEN\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.Migrations.Schema.resources
@@ -311,3 +310,8 @@ E:\VS PROJECTOS\EXAMEN\LAExamen\Proyecto\Proyecto\bin\es\Microsoft.AspNet.Identi
 E:\VS PROJECTOS\EXAMEN\LAExamen\Proyecto\Proyecto\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
 E:\VS PROJECTOS\EXAMEN\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.dll
 E:\VS PROJECTOS\EXAMEN\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.pdb
+C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.Migrations.attributes.resources
+C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.Migrations.attributes1.resources
+C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.Migrations.LimpiarErrores.resources
+C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.Migrations.Mejoras.resources
+C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.csprojResolveAssemblyReference.cache

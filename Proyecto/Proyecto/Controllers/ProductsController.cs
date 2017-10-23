@@ -55,51 +55,137 @@ namespace Proyecto.Controllers
             }
             return Json(product);
         }
-        public JsonResult AddVariant(int? Id, int Product, int Price, int? CategoryId)
+        public JsonResult AddVariant(int Id, int ProductId, int Price)
         {
             
             ProductVariant ProductVariant = new ProductVariant();
+            ProductVariant.ProductId = ProductId;
+            ProductVariant.Price = Price;
             int guardado;
-            if (Price != 0)
-            {
+            
                 if (Id == 0)
                 {
-                    ProductVariant.ProductId = Product;
-                    ProductVariant.Price = Price;
+                    
                     db.Variants.Add(ProductVariant);
                     guardado = db.SaveChanges();
                     return Json(ProductVariant);
                 }
+                else
+                {
+                ProductVariant.Id = Id;
+                db.Entry(ProductVariant).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(ProductVariant);
             }
-            return Json(false);
+        }
+        public JsonResult FindAttribute(string AttributeName)
+        {
+
+            Models.Attribute Attribute = (from a in db.Attributes
+                                          select a).ToList().Find(x => x.Description == AttributeName);
+            return Json(Attribute);
+        }
+        public JsonResult AddAttribute(string AttributeName)
+        {
+
+            Models.Attribute Attribute = new Models.Attribute();
+            Attribute.Description = AttributeName;
+            db.Attributes.Add(Attribute);
+            db.SaveChanges();
+            return Json(Attribute);
         }
 
+        public JsonResult FindValueAttribute(int AttributeId, string AttributeValue)
+        {
 
+            AttributeValue Value = (from a in db.AttributeValues
+                                    where a.AttributeId == AttributeId
+                                    select a).ToList().Find(x => x.Value == AttributeValue);
+            if (Value != null)
+            {
+                return Json(Value.Id);
+            }
+            return Json(Value);
+        }
+        public JsonResult AddValueAttribute(int AttributeId, string AttributeValue)
+        {
+
+            AttributeValue Value = new AttributeValue();
+            Value.AttributeId = AttributeId;
+            Value.Value = AttributeValue;
+            db.AttributeValues.Add(Value);
+            db.SaveChanges();
+            return Json(Value);
+        }
+        public JsonResult AddVarriantAtribute(int AttributeValueId, int VariantId)
+        {
+
+            VariantAttribute model = new VariantAttribute();
+            model.VariantId = VariantId;
+            model.AttributeValueId = AttributeValueId;
+            db.VariantAttributes.Add(model);
+            db.SaveChanges();
+            return Json(model);
+        }
         // POST: Products/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,CategoryId")] Product product)
+        public ActionResult Create(ProductViewModel product, string action)
         {
-            if (product.Id == 0)
+            if (action == "Create")
             {
-                if (ModelState.IsValid)
+                if (product.Id == 0)
                 {
-                    db.Products.Add(product);
+                    if (ModelState.IsValid)
+                    {
+                        db.Products.Add(product.ToModel());
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(product.ToModel()).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+
+            }
+            if (action == "Variant")
+            {
+                ProductVariant ProductVariant = new ProductVariant();
+                ProductVariant.ProductId = product.Id;
+                ProductVariant.Price = product.Price;
+                int guardado;
+
+                if (product.VariantId == 0)
+                {
+                    db.Variants.Add(ProductVariant);
+                    guardado = db.SaveChanges();
+                } else
+                {
+                    ProductVariant.Id = product.VariantId;
+                    db.Entry(ProductVariant).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
                 }
             }
-            else
+            if (action == "retirar_variante")
             {
-                if (ModelState.IsValid)
-                {
-                    db.Entry(product).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
+                product.RetirarVariante();
             }
+                product.ProductVariants = (from p in db.Variants
+                                       where p.ProductId == product.Id
+                                        select new ProductVariantViewModel
+                                        {
+                                            Id = p.Id,
+                                            ProductId = p.ProductId,
+                                            Price = p.Price
+                                        }).ToList();
             return View(product);
         }
 

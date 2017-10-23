@@ -16,5 +16,6 @@ namespace Proyecto.Models
         public string Value { get; set; }
 
         public virtual Attribute Attributes { get; set; }
+
     }
 }

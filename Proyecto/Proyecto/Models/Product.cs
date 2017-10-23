@@ -28,7 +28,10 @@ namespace Proyecto.Models
         public int? CategoryId { get; set; }
         public int Price { get; set; }
         public int VariantId { get; set; }
-        public int AttribtId { get; set; }
+        public int AttributeId { get; set; }
+        public string AttributeName { get; set; }
+        public int AttributeValueId { get; set; }
+        public string AttributeValue { get; set; }
         #endregion
 
         #region Contenido
@@ -47,7 +50,25 @@ namespace Proyecto.Models
         {
            
         }
+        public Product ToModel()
+        {
+            var Product = new Product();
+            Product.Id = this.Id;
+            Product.Name = this.Name;
+            Product.CategoryId = this.CategoryId;
 
+            return Product;
+        }
+        public void RetirarVariante()
+        {
+            if (ProductVariants.Count > 0)
+            {
+                var detalleARetirar = ProductVariants.Where(x => x.Retirar)
+                                                        .SingleOrDefault();
+
+                ProductVariants.Remove(detalleARetirar);
+            }
+        }
 
 
     }
