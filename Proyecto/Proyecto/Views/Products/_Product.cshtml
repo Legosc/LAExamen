@@ -1,0 +1,145 @@
+﻿@model Proyecto.Models.ProductViewModel
+
+@{
+    ViewBag.Title = "_Product";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id, new { id = "Id" })
+        <div class="card-panel">
+            <h5 class="card-title">Producto</h5>
+            <div class="row">
+                <div class="input-field col s12">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { id = "Name", @autocomplete = "off" } })
+                    <label for="Name">Nombre</label>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field col s12">
+                    @Html.HiddenFor(x => x.CategoryId, new { id = "CategoryId", onchange = "OnHiddenValueChanged" })
+                    <input type="text" id="CategoryName" autocomplete="off">
+                    <label for="CategoryName">Categoria</label>
+                </div>
+            </div>
+        </div>
+
+        <a class="waves-effect waves-light btn modal-trigger" onclick="OpenDialog()"><i class="material-icons left">add</i>Agregar Variante</a>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Variante</h4>
+                <div class="row">
+                    @Html.HiddenFor(x => x.VariantId, new { htmlAttributes = new { id = "VariantId" } })
+                    <div class="input-field col s12">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { id = "Price", @autocomplete = "off" } })
+                        <label for="Name">Precio</label>
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                    <ul id="Atributos" class="collection with-header">
+                        <li class="collection-header">
+                            <div class="row">
+
+                                <div class="col s5">
+                                    <b>Atributo</b>
+                                </div>
+                                <div class="col s3 center">
+                                    <b>Valor</b>
+                                </div>
+                                <div class="col s2"></div>
+
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <!-- Modelo -->
+
+                            <div class="row">
+                                <div class="col s5">
+                                    @Html.HiddenFor(model => model.AttributeId, new { id = "AttributeId" })
+                                    @Html.EditorFor(model => model.AttributeName, new { htmlAttributes = new { id = "AttributeName", @autocomplete = "off" } })
+                                </div>
+                                <div class="col s3 center-align">
+                                    @Html.HiddenFor(x => x.AttributeValueId, new { id = "AttributeValueId" })
+                                    @Html.EditorFor(model => model.AttributeValue, new { htmlAttributes = new { id = "AttributeValue", @autocomplete = "off" } })
+                                </div>
+                                <div class="col s2">
+                                    <a class="btn-floating btn-large waves-effect waves-light" onclick="AddVarriant()"><i class="material-icons">add</i></a>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-action modal-close waves-effect waves-green btn-flat" value="Variant" type="submit" name="action">
+                    Aceptar
+                </button>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+            </div>
+        </div>
+
+        @if (Model.ProductVariants.Count > 0)
+        {
+            <div class="card-panel">
+                <h5 class="card-title">Variantes</h5>
+                <div class="row">
+                    <ul id="Variantes" class="collection with-header">
+
+                        <li class="collection-header">
+                            <div class="row">
+                                <div class="col s1"></div>
+                                <div class="col s5">
+                                    <b>Descripcion</b>
+                                </div>
+                                <div class="col s2 center">
+                                    <b>Precio</b>
+                                </div>
+
+                            </div>
+                        </li>
+                        @foreach (var d in Model.ProductVariants)
+                    {
+                        var i = Model.ProductVariants.IndexOf(d);
+                            <li class="collection-item" id="@d.Id">
+                                <!-- Modelo -->
+                                @Html.Hidden("Variante[" + i + "].Id", d.Id)
+                                @Html.Hidden("Variante[" + i + "].Price", d.Price)
+                                
+                                <div class="row">
+                                    <div class="col s2">
+
+                                        <a class="waves-effect waves-light btn" onclick="EditVariant(@d.Id)"><i class="material-icons left">edit</i></a>
+
+                                    </div>
+                                    <div class="col s2">
+
+                                        <a class="waves-effect waves-light btn red" onclick="DeleteVariant(@d.Id)"><i class="material-icons left">delete</i></a>
+
+                                    </div>
+                                    <div class="col s5">
+                                        @d.Id
+                                    </div>
+                                    <div class="col s2 center-align">
+                                        @d.Price
+                                    </div>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        }
+        <button class="btn waves-effect waves-light" value="Create" type="submit" name="action">
+            <i class="material-icons center">save</i><span>Guardar</span>
+        </button>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

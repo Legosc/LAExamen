@@ -99,6 +99,6 @@ namespace Proyecto.Models
 
         }
 
-        
+        public System.Data.Entity.DbSet<Proyecto.Models.ProductViewModel> ProductViewModels { get; set; }
     }
 }

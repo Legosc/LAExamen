@@ -36,13 +36,12 @@ namespace Proyecto.Models
 
         #region Contenido
         public List<ProductVariantViewModel> ProductVariants { get; set; }
-        public List<AttributeViewModel> Attributes { get; set; }
+       
         #endregion
 
         public ProductViewModel()
         {
             ProductVariants = new List<ProductVariantViewModel>();
-            Attributes = new List<AttributeViewModel>();
             Refrescar();
         }
 
@@ -59,16 +58,7 @@ namespace Proyecto.Models
 
             return Product;
         }
-        public void RetirarVariante()
-        {
-            if (ProductVariants.Count > 0)
-            {
-                var detalleARetirar = ProductVariants.Where(x => x.Retirar)
-                                                        .SingleOrDefault();
-
-                ProductVariants.Remove(detalleARetirar);
-            }
-        }
+        
 
 
     }

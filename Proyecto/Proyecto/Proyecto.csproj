@@ -252,6 +252,14 @@
     <Compile Include="Migrations\201710230318571_Mejoras.Designer.cs">
       <DependentUpon>201710230318571_Mejoras.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710250234118_no se porque.cs" />
+    <Compile Include="Migrations\201710250234118_no se porque.Designer.cs">
+      <DependentUpon>201710250234118_no se porque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710250325364_as.cs" />
+    <Compile Include="Migrations\201710250325364_as.Designer.cs">
+      <DependentUpon>201710250325364_as.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attribute.cs" />
@@ -386,6 +394,7 @@
     <Content Include="Scripts\materialize\materialize.js" />
     <Content Include="Scripts\materialize\materialize.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Products.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -445,6 +454,7 @@
     <Content Include="Views\Attributes\Details.cshtml" />
     <Content Include="Views\Attributes\Edit.cshtml" />
     <Content Include="Views\Attributes\Index.cshtml" />
+    <Content Include="Views\Products\_Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -487,6 +497,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710230318571_Mejoras.resx">
       <DependentUpon>201710230318571_Mejoras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710250234118_no se porque.resx">
+      <DependentUpon>201710250234118_no se porque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710250325364_as.resx">
+      <DependentUpon>201710250325364_as.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

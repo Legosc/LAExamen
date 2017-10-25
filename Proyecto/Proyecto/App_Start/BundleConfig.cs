@@ -20,7 +20,8 @@ namespace Proyecto
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
+            bundles.Add(new ScriptBundle("~/bundles/product").Include(
+                        "~/Scripts/Products.js"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                     "~/Scripts/materialize.js",
                     "~/Scripts/respond.js"));

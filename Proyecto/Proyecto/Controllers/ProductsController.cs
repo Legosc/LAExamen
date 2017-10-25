@@ -135,7 +135,14 @@ namespace Proyecto.Controllers
             return Json(ProductVariant);
         }
 
-        
+        public JsonResult DeleteAttribute(int VarriantAtributeId)
+        {
+            VariantAttribute ProductVariant = db.VariantAttributes.Find(VarriantAtributeId);
+            db.VariantAttributes.Remove(ProductVariant);
+            db.SaveChanges();
+            return Json(ProductVariant);
+        }
+
         // POST: Products/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -194,7 +201,6 @@ namespace Proyecto.Controllers
                                         }).ToList();
             return View(product);
         }
-
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -207,10 +213,15 @@ namespace Proyecto.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
-            return View(product);
-        }
+            
+            ProductViewModel model = new ProductViewModel();
+            model.Id = product.Id;
+            model.Name = product.Name;
+            model.CategoryId = product.CategoryId;
+            
 
+            return View(model);
+        }
         // POST: Products/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -228,7 +239,6 @@ namespace Proyecto.Controllers
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
-
         // GET: Products/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -243,7 +253,6 @@ namespace Proyecto.Controllers
             }
             return View(product);
         }
-
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -254,7 +263,6 @@ namespace Proyecto.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

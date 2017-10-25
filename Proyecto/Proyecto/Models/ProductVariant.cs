@@ -25,7 +25,11 @@ namespace Proyecto.Models
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int Price { get; set; }
-        public bool Retirar { get; set; }
-
+        
+        public List<AttributeViewModel> Attributes { get; set; }
+             public ProductVariantViewModel()
+        {
+            Attributes = new List<AttributeViewModel>();
+        }
     }
 }
