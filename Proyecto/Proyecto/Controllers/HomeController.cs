@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Proyecto.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,8 +8,10 @@ using System.Web.Mvc;
 
 namespace Proyecto.Controllers
 {
+   
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
             return View();
@@ -25,6 +29,12 @@ namespace Proyecto.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public string ListCategories()
+        {
+            List<Category> categories = db.Categories.ToList();
+            string json = JsonConvert.SerializeObject(categories, Formatting.Indented);
+            return json;
         }
     }
 }

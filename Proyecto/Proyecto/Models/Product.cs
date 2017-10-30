@@ -26,6 +26,7 @@ namespace Proyecto.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int? CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public int Price { get; set; }
         public int VariantId { get; set; }
         public int AttributeId { get; set; }
@@ -49,6 +50,7 @@ namespace Proyecto.Models
         {
            
         }
+       
         public Product ToModel()
         {
             var Product = new Product();

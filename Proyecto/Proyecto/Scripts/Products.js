@@ -66,8 +66,7 @@ function VerfProductAttribute() {
 function FindValueAttribute() {
     var AttributeId = $("#AttributeId").val();
     var AttributeValue = $("#AttributeValue").val();
-    console.log(AttributeValue);
-    console.log(AttributeId);
+    
     $.ajax({
         type: 'post',
         url: '/Products/FindValueAttribute',
@@ -76,12 +75,12 @@ function FindValueAttribute() {
             'AttributeValue': AttributeValue
         },
         success: function (response) {
-            console.log(response.Id);
+            
             $("#AttributeValueId").val(response);
             AddVarriantAtribute();
         },
         error: function (response) {
-            console.log("Me cago");
+            
             AddValueAttribute();
         }
     });
@@ -108,8 +107,7 @@ function AddAttribute() {
 function AddValueAttribute() {
     var AttributeId = $("#AttributeId").val();
     var AttributeValue = $("#AttributeValue").val();
-    console.log(AttributeId);
-    console.log(AttributeValue);
+    
     $.ajax({
         type: 'post',
         url: '/Products/AddValueAttribute',
@@ -127,10 +125,10 @@ function AddValueAttribute() {
     });
 }
 function AddVarriantAtribute() {
-    console.log("LLegamos");
-    console.log(VariantId.defaultValue);
+    
+    
     AttributeValueId = $("#AttributeValueId").val();
-    console.log(AttributeValueId);
+    
     $.ajax({
         type: 'post',
         url: '/Products/AddVarriantAtribute',
@@ -168,7 +166,7 @@ function DeleteVariant(obj) {
 
         }
     });
-    console.log(obj);
+    
 }
 function DeleteAttribute(obj) {
     $.ajax({
@@ -184,8 +182,40 @@ function DeleteAttribute(obj) {
 
         }
     });
-    console.log(obj);
+    
 }
+function EditVariant(obj) {
+    $.ajax({
+        type: 'post',
+        url: '/Products/EditVariant',
+        data: {
+            'Varriant': obj
+        },
+        success: function (response) {
+        	$("#VariantId").val(response.Id);
+        	$("#Price").val(response.Price);
+        	$('#modal1').modal('open');
+        	var attri = response.atributos;
+			$('#Atributos').remove();
+        	$.each(attri, function (key, data) {
+        		var tr = "<li> class='collection-item' id='"+ data.Id+"'</li>";
+        		var Attri = "<div class='col s5'>" + data.Description + "</div>";
+	            var Valor = "<div class='col s3'>" + data.Value + "</div>";
+	            var boton = "<div class='col s2'><a class='waves-effect waves-light btn red' onclick='DeleteAttribute(" + data.Id + ")'><i class='material-icons'>delete</i></a></div>";
+	            var item = "<li class='collection-item' id='" + data.Id + "'><div class='row'>" + Attri + Valor + boton + "</div></li>";
+	            $('#Atributos').append(item);
+			})
+			        	
+        },
+        error: function (response) {
+
+        }
+    });
+    
+}
+
+
+
 $(document).ready(function () {
     $(function () {
         var id = $("#Id").val();

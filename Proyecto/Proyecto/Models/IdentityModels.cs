@@ -26,6 +26,9 @@ namespace Proyecto.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SaleLine> SaleLines { get; set; }
         public DbSet<VariantAttribute> VariantAttributes { get; set; }
         public DbSet<AttributeValue> AttributeValues { get; set; }
         public DbSet<Attribute> Attributes { get; set; }
@@ -36,12 +39,15 @@ namespace Proyecto.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<IdentityUser> IdentityUser { get; set; }
         public ApplicationDbContext()
+
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Configuration.ProxyCreationEnabled = false;
         }
 
         public static ApplicationDbContext Create()
         {
+            
             return new ApplicationDbContext();
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -84,21 +90,25 @@ namespace Proyecto.Models
                 .HasMany(e => e.AttributeValues)
                 .WithRequired(e => e.Attributes)
                 .WillCascadeOnDelete(true);
+
             modelBuilder.Entity<Sale>()
                 .HasRequired(e => e.Client)
                 .WithMany(e => e.Sales);
+
             modelBuilder.Entity<Sale>()
                 .HasOptional(e => e.Employee)
                 .WithMany(e => e.Sales);
+
             modelBuilder.Entity<Sale>()
-                .HasMany(e => e.SaleLines)
+                .HasMany(e => e.SaleLine)
                 .WithRequired(e => e.Sale)
                 .WillCascadeOnDelete(true);
-            
-            
 
+            modelBuilder.Entity<SaleLine>()
+                .HasRequired(sl => sl.Sale)
+                .WithMany(s => s.SaleLine)
+                .WillCascadeOnDelete(true);
         }
 
-        public System.Data.Entity.DbSet<Proyecto.Models.ProductViewModel> ProductViewModels { get; set; }
     }
 }

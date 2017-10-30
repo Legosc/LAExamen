@@ -7,6 +7,7 @@ namespace Proyecto.Models.Logics
 {
     public class CategoriLogic
     {
+       
         public List<Category> Buscar(int? id)
         {
             using (var context = new ApplicationDbContext())
@@ -23,7 +24,6 @@ namespace Proyecto.Models.Logics
         public bool VerifCategoria(int IdCat)
         {
             var context = new ApplicationDbContext();
-            
             var result = context.Categories.Find(IdCat);
             if (result == null)
             {
@@ -32,5 +32,8 @@ namespace Proyecto.Models.Logics
             else { return true; }
             
         }
+
+        
     }
+   
 }

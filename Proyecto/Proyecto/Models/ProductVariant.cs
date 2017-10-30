@@ -7,6 +7,7 @@ using System.Web;
 
 namespace Proyecto.Models
 {
+    
     public class ProductVariant
     {
         [Key]
@@ -25,11 +26,7 @@ namespace Proyecto.Models
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int Price { get; set; }
-        
-        public List<AttributeViewModel> Attributes { get; set; }
-             public ProductVariantViewModel()
-        {
-            Attributes = new List<AttributeViewModel>();
-        }
+        public string ProductName { get; set; }
+
     }
 }

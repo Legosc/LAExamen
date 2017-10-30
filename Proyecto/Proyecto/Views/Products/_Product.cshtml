@@ -6,6 +6,7 @@
 
 @using (Html.BeginForm())
 {
+    
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -21,7 +22,7 @@
                 </div>
                 <div class="input-field col s12">
                     @Html.HiddenFor(x => x.CategoryId, new { id = "CategoryId", onchange = "OnHiddenValueChanged" })
-                    <input type="text" id="CategoryName" autocomplete="off">
+                    @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { id = "CategoryName", @autocomplete = "off" } })
                     <label for="CategoryName">Categoria</label>
                 </div>
             </div>
@@ -91,7 +92,10 @@
 
                         <li class="collection-header">
                             <div class="row">
-                                <div class="col s1"></div>
+                                <div class="col s2"><b>Editar</b></div>
+                                <div class="col s2">
+                                    <b>Eliminar</b>
+                                </div>
                                 <div class="col s5">
                                     <b>Descripcion</b>
                                 </div>
@@ -121,7 +125,7 @@
 
                                     </div>
                                     <div class="col s5">
-                                        @d.Id
+                                        @d.ProductName
                                     </div>
                                     <div class="col s2 center-align">
                                         @d.Price
@@ -133,11 +137,13 @@
                     </ul>
                 </div>
             </div>
+            
         }
         <button class="btn waves-effect waves-light" value="Create" type="submit" name="action">
             <i class="material-icons center">save</i><span>Guardar</span>
         </button>
     </div>
+    
 }
 <div>
     @Html.ActionLink("Back to List", "Index")
