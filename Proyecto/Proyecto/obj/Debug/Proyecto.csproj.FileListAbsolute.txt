@@ -115,3 +115,4 @@ C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.csproj.
 C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.csproj.CoreCompileInputs.cache
 C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.dll
 C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.pdb
+C:\Users\VITECHD\Documents\LAExamen\Proyecto\Proyecto\obj\Debug\Proyecto.csprojResolveAssemblyReference.cache

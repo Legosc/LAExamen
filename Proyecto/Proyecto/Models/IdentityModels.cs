@@ -108,6 +108,7 @@ namespace Proyecto.Models
                 .HasRequired(sl => sl.Sale)
                 .WithMany(s => s.SaleLine)
                 .WillCascadeOnDelete(true);
+            modelBuilder.Entity<Category>().HasOptional(x => x.ICategory);
         }
 
     }

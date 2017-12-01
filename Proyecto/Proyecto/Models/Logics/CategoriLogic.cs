@@ -33,6 +33,25 @@ namespace Proyecto.Models.Logics
             
         }
 
+        public string CategoryList(List<Category> List)
+        {
+            string htmlList ="";
+            
+            foreach (Category x in List)
+            {
+                htmlList = htmlList + "<ul class='collection'>";
+                if (x.ICategory == null) {
+                    htmlList = htmlList + "<li class='collection - item' id= '"+ x.Id +"'>"+ x.Name + "</li>";
+                }
+                else
+                {
+
+                }
+                htmlList = htmlList + "</ul>";
+            }
+
+            return htmlList;
+        }
         
     }
    

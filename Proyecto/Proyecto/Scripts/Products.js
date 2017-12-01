@@ -196,7 +196,8 @@ function EditVariant(obj) {
         	$("#Price").val(response.Price);
         	$('#modal1').modal('open');
         	var attri = response.atributos;
-			$('#Atributos').remove();
+			console.log('asd');
+			 $('#Atributos li').remove();
         	$.each(attri, function (key, data) {
         		var tr = "<li> class='collection-item' id='"+ data.Id+"'</li>";
         		var Attri = "<div class='col s5'>" + data.Description + "</div>";

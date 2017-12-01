@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Proyecto.Models;
+using Proyecto.Models.Logics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Proyecto.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private CategoriLogic cl = new CategoriLogic();
         public ActionResult Index()
         {
             return View();
@@ -33,6 +35,7 @@ namespace Proyecto.Controllers
         public string ListCategories()
         {
             List<Category> categories = db.Categories.ToList();
+            cl.CategoryList(categories);
             string json = JsonConvert.SerializeObject(categories, Formatting.Indented);
             return json;
         }
